@@ -820,6 +820,8 @@ class HAPServer(socketserver.ThreadingMixIn,
         # NOTE: In python <3.3 socket.timeout is not OSError, hence the above.
         # Also, when it is actually an OSError, it MAY not have an errno equal to
         # ETIMEDOUT.
+        logger.debug("Connection timeout for %s with exception %s", client_addr, exception)
+        return
         sock = self.connections.pop(client_addr, None)
         if sock is not None:
             self._close_socket(sock)
